@@ -1,6 +1,6 @@
 # Introduction to AI-Assisted Development: Django To-Do App
 
-This project is a simple To-Do application built using the Django web framework as part of a homework assignment for the AI Dev Tools Zoomcamp hosted by the DataTalksClub.
+This project is a simple To-Do application built using the Django web framework as part of a homework assignment for the [AI Dev Tools Zoomcamp hosted by the DataTalksClub](https://github.com/DataTalksClub/ai-dev-tools-zoomcamp).
 
 The primary goal of this exercise is to demonstrate how modern AI tools (such as ChatGPT, Claude, GitHub Copilot, Cursor, etc.) can accelerate and guide the application development process, even if you are unfamiliar with the underlying technologies like Python or Django.
 
