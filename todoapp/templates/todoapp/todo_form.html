@@ -5,16 +5,29 @@
 
   <form method="post">
     {% csrf_token %}
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+
     <div class="mb-3">
       {{ form.title.label_tag }}
+      {% if form.title.errors %}
+        <div class="text-danger">{{ form.title.errors }}</div>
+      {% endif %}
       {{ form.title }}
     </div>
     <div class="mb-3">
       {{ form.description.label_tag }}
+      {% if form.description.errors %}
+        <div class="text-danger">{{ form.description.errors }}</div>
+      {% endif %}
       {{ form.description }}
     </div>
     <div class="mb-3">
       {{ form.due_date.label_tag }}
+      {% if form.due_date.errors %}
+        <div class="text-danger">{{ form.due_date.errors }}</div>
+      {% endif %}
       {{ form.due_date }}
     </div>
     <div class="form-check mb-3">
