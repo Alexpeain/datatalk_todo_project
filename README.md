@@ -4,6 +4,10 @@ This project is a simple To-Do application built using the [Django web framework
 
 The primary goal of this exercise is to demonstrate how modern AI tools (such as ChatGPT, Claude, GitHub Copilot, Cursor, etc.) can accelerate and guide the application development process, even if you are unfamiliar with the underlying technologies like Python or Django.
 
+## App Demo
+
+![Django To-Do App Screenshot](./media/Screenshot%202025-11-26%20214421.png)
+
 ## Features
 
 The application supports standard To-Do list functionality:
