@@ -1,33 +1,39 @@
-# Base image: Node.js LTS
-FROM node:22-alpine AS build
-
-# Set working directory
+# ---------- Base build stage ----------
+FROM node:18 AS base
 WORKDIR /app
-
-# Copy root package.json and install concurrently
 COPY package*.json ./
+
+# ---------- Backend build ----------
+FROM base AS backend-build
+WORKDIR /app/backend
+COPY backend/package*.json ./
 RUN npm install
+COPY backend/ .
+RUN npm run build
 
-# Copy backend and frontend source
-COPY backend ./backend
-COPY frontend ./frontend
+# ---------- Frontend build ----------
+FROM base AS frontend-build
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ .
+RUN npm run build
 
-# Install dependencies for backend and frontend
-RUN npm install --prefix backend
-RUN npm install --prefix frontend
-
-# Build frontend
-RUN npm run build --prefix frontend
-
-# Production stage
-FROM node:22-alpine AS production
-
+# ---------- Production stage ----------
+FROM node:18-alpine AS production
 WORKDIR /app
 
-# Copy backend code
-COPY --from=build /app/backend ./backend
+# Copy backend build + dependencies
+COPY --from=backend-build /app/backend /app/backend
 
-# Copy built frontend into backend's public folder
-COPY --from=build /app/frontend/dist ./backend/public
+# Copy frontend build output
+COPY --from=frontend-build /app/frontend/dist /app/frontend/dist
 
-# Install only production dependencies
+# Install only production deps for backend
+WORKDIR /app/backend
+RUN npm ci --only=production
+
+# Expose backend port
+EXPOSE 3000
+
+CMD ["npm", "start"]
